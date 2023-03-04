@@ -45,13 +45,13 @@ function modalData(data) {
                     ${data.description}
                     <div class="d-flex gap-3 justify-content-around">
                         <div class="border p-3">
-                        ${data.pricing?data.pricing[0].price!=="No cost"?data.pricing[0].price:"Free of cost" : 'Free of Cost'}
+                        ${data.pricing ? data.pricing[0].price !== "No cost" ? data.pricing[0].price:"Free of cost" : 'Free of Cost'}
                         </div>
                         <div class="border p-3">
-                        ${data.pricing?data.pricing[1].price!=="No cost"?data.pricing[1].price:"Free of cost" : 'Free of Cost'}
+                        ${data.pricing ? data.pricing[1].price !== "No cost" ? data.pricing[1].price:"Free of cost" : 'Free of Cost'}
                         </div>
                         <div class="border p-3">
-                        ${data.pricing?data.pricing[2].price!=="No cost"?data.pricing[2].price:"Free of cost" : 'Free of Cost'}
+                        ${data.pricing ? data.pricing[2].price !== "No cost" ? data.pricing[2].price:"Free of cost" : 'Free of Cost'}
                         </div>                      
                     </div>
                     <div>
@@ -72,7 +72,7 @@ function modalData(data) {
 
                 <div class="position-relative">
                     <img src="${data.image_link[0]}" class="img-fluid" style="height: 50vh;">
-                    <button class="d-none btn btn-danger position-absolute top-0 end-0">${data.accuracy.score ? data.accuracy.score*100 : ''}% Accuracy</button>
+                    ${data.accuracy.score !== null ? `<button id="accuracy-btn" class="btn btn-danger disabled position-absolute top-0 end-0">${data.accuracy.score*100}% Accuracy</button>` : ''}
                 </div>
             </div>
         </div>
