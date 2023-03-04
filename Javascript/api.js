@@ -40,18 +40,18 @@ function modalData(data) {
                 <h1 class="modal-title fs-5" id="cardModalLabel">Modal title</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body d-lg-flex justify-content-center align-items-center">
+            <div class="modal-body row row-cols-1 row-cols-lg-2">
                 <div class="">
                     ${data.description}
                     <div class="d-flex gap-3 justify-content-around">
                         <div class="border p-3">
-                        ${data.pricing ? data.pricing[0].price !== "No cost" ? data.pricing[0].price:"Free of cost" : 'Free of Cost'}
+                        ${data.pricing ? data.pricing[0].price !== "No cost" ? data.pricing[0].price:"Free of Cost" : 'Free of Cost'}
                         </div>
                         <div class="border p-3">
-                        ${data.pricing ? data.pricing[1].price !== "No cost" ? data.pricing[1].price:"Free of cost" : 'Free of Cost'}
+                        ${data.pricing ? data.pricing[1].price !== "No cost" ? data.pricing[1].price:"Free of Cost" : 'Free of Cost'}
                         </div>
                         <div class="border p-3">
-                        ${data.pricing ? data.pricing[2].price !== "No cost" ? data.pricing[2].price:"Free of cost" : 'Free of Cost'}
+                        ${data.pricing ? data.pricing[2].price !== "No cost" ? data.pricing[2].price:"Free of Cost" : 'Free of Cost'}
                         </div>                      
                     </div>
                     <div>
@@ -70,9 +70,11 @@ function modalData(data) {
                     </div>
                 </div>
 
-                <div class="position-relative">
-                    <img src="${data.image_link[0]}" class="img-fluid" style="height: 50vh;">
+                <div class="position-relative text-center">
+                    <img src="${data.image_link[0]}" class="img-fluid w-100" style="height: 40vh;">
                     ${data.accuracy.score !== null ? `<button id="accuracy-btn" class="btn btn-danger disabled position-absolute top-0 end-0">${data.accuracy.score*100}% Accuracy</button>` : ''}
+                    <h5 class="pt-3 pb-2">${data.input_output_examples ? data?.input_output_examples[0]?.input : 'Can you give any example?'}</h5>
+                    <p>${data.input_output_examples ? data?.input_output_examples[0]?.output : 'No! Not yet! Take a break!!!'}</p>
                 </div>
             </div>
         </div>
