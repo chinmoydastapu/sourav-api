@@ -1,39 +1,23 @@
 function loadData() {
+    loading(true);
+
     fetch('https://openapi.programming-hero.com/api/ai/tools')
         .then(response => response.json())
         .then(data => showData(data.data.tools))
 }
 
 function showData(cards) {
-    console.log(cards);
-    const cardsContainer = document.getElementById('cards-container');
-    for (const card of cards) {
-        const cardDiv = document.createElement('div');
-        cardDiv.innerHTML = `
-            <div class="col">
-                <div class="card h-100">
-                    <img src="${card.image}" class="card-img-top"  alt="...">
-                    <h4>Features</h4>
-                    <ol type="1">
-                        <li>${card.features[0]}</li>
-                        <li>${card.features[1]}</li>
-                        <li>${card.features[2]}</li>
-                    </ol>
-                    <hr class="container w-75 mx-auto">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="card-title">${card.name}</h5>
-                            <p class="card-text">${card.published_in}</p>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cardModal" onclick="openModal(${card.id})">X</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        cardsContainer.appendChild(cardDiv);
-    }
+    // console.log(cards);
+    const firstCards = cards.slice(0, 6);
+    // console.log(firstCards);
+    showCards(firstCards);
+
+    document.getElementById('see-more-btn').addEventListener('click', function() {
+        loading(true);
+        const remainingCards = cards.slice(6, cards.length);
+        showCards(remainingCards);
+        document.getElementById('see-more-btn').classList.add('d-none');
+    })
 }
 
 function openModal(id) {
@@ -95,9 +79,44 @@ function modalData(data) {
     `;
 }
 
-function loading(data){
-    if(data){
+function loading(data) {
+    if(data) {
+        document.getElementById('spinner').classList.remove('d-none');
+    } else {
+        document.getElementById('spinner').classList.add('d-none');
+    }
+}
 
+// ShowMore
+function showCards(cards) {
+    const cardsContainer = document.getElementById('cards-container');
+    for (const card of cards) {
+        const cardDiv = document.createElement('div');
+        cardDiv.innerHTML = `
+            <div class="col">
+                <div class="card h-100">
+                    <img src="${card.image}" class="card-img-top"  alt="...">
+                    <h4>Features</h4>
+                    <ol type="1">
+                        <li>${card.features[0]}</li>
+                        <li>${card.features[1]}</li>
+                        <li>${card.features[2]}</li>
+                    </ol>
+                    <hr class="container w-75 mx-auto">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">${card.name}</h5>
+                            <p class="card-text">${card.published_in}</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cardModal" onclick="openModal(${card.id})">X</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        cardsContainer.appendChild(cardDiv);
+        loading(false);
     }
 }
 
